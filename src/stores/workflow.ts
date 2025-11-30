@@ -17,7 +17,8 @@ const SAMPLE_WORKFLOWS: string[] = [
   "workflow-cart-recovery",
 ];
 
-const LOAD_SAMPLE_WORKFLOW_INDEX = 1; // set the index 0 or 1 to load the sample workflow define in SAMPLE_WORKFLOWS array, -1 to load the empty workflow
+// set the index 0 or 1 to load the sample workflow define in SAMPLE_WORKFLOWS array, -1 to load the empty workflow
+const LOAD_SAMPLE_WORKFLOW_INDEX = -1; 
 
 const STORAGE_KEY = "workflow-builder/current";
 

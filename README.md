@@ -10,17 +10,17 @@ npm i
 npm run dev
 ```
 
-Sample non-UI test:
+Sample Cases:
 
-```bash
-npm run test:sample
-```
+ - Sample Cases are present in the `src/samples` directory
+ - To run and test the sample cases, open the `stores/workflow.ts` file and set the `LOAD_SAMPLE_WORKFLOW_INDEX`  variable to 0 or 1 based on which sample file you want to run using `SAMPLE_WORKFLOWS` array
+
 
 ### Architecture overview
 
 - **Framework**: Vue 3 + Vite + TypeScript
-- **Graph**: `@vue-flow/core` with MiniMap and Controls
-- **State**: Pinia + Immer (immutable history for undo/redo)
+- **Graph**: `@vue-flow/core` with MiniMap
+- **State**: Pinia + Immer 
 - **Validation**: Simple custom validators (schema-driven forms without external libs)
 - **Styling**: TailwindCSS
 
@@ -30,9 +30,10 @@ Key directories:
 - `src/components/Palette.vue`: node palette (add nodes)
 - `src/components/ConfigPanel.vue`: dynamic, schema-driven config form with Zod
 - `src/components/RunPreview.vue`: visual simulation controls (play/pause/step)
-- `src/utils/registry.ts`: node type registry and Zod schemas
-- `src/utils/simulator.ts`: simple mock simulator in topological order
-- `public/samples/*.json`: two sample workflows
+- `src/utils/registry.ts`: node type schema and validation
+- `src/utils/simulator.ts`: simple mock simulator
+- `src/samples/*.json`: two sample workflows
+- `src/components/*`: custom edge and node components
 
 ### State shape
 
@@ -66,9 +67,5 @@ Executes nodes in topological order; logs per-step results with simple mock beha
 Controls: Play, Pause, Step, Reset.
 
 ### Roadmap / TODOs
-
-- Edge labels enforcement for conditions (true/false)
-- Typed ports enforcement
 - Keyboard shortcuts: multi-select, delete, duplicate, snap-to-grid
-- IndexedDB option for large workflows
 - A11y polish (roles/aria), performance for 200+ nodes
