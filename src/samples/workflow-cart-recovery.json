@@ -1,0 +1,482 @@
+{
+  "id": "sample2",
+  "name": "Abandoned Cart Recovery & Inventory Hold",
+  "version": 1,
+  "updatedAt": "2025-11-30T16:32:36.485Z",
+  "nodes": [
+      {
+          "id": "a1",
+          "position": {
+              "x": 594.8346577036085,
+              "y": 34.86606050064217
+          },
+          "data": {
+              "kind": "trigger.webhook",
+              "label": "Cart Event",
+              "config": {
+                  "path": "/cart/webhook"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a2",
+          "position": {
+              "x": 600,
+              "y": 200
+          },
+          "data": {
+              "kind": "logic.condition",
+              "label": "Item In Stock?",
+              "config": {
+                  "expression": "response.status == 200"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a3",
+          "position": {
+              "x": 600,
+              "y": 400
+          },
+          "data": {
+              "kind": "action.email",
+              "label": "Email #1",
+              "config": {
+                  "to": "user@example.com",
+                  "subject": "We saved your cart",
+                  "body": "Items are waiting for you"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a4",
+          "position": {
+              "x": 595.1402519005394,
+              "y": 545.3278338810677
+          },
+          "data": {
+              "kind": "util.delay",
+              "label": "Delay 2 s",
+              "config": {
+                  "ms": 2000
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a5",
+          "position": {
+              "x": 589.0655667762136,
+              "y": 673.6465494140234
+          },
+          "data": {
+              "kind": "logic.condition",
+              "label": "Is Purchased?",
+              "config": {
+                  "expression": "purchased"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a6",
+          "position": {
+              "x": 595.4408304966539,
+              "y": 781.6216660781782
+          },
+          "data": {
+              "kind": "action.sms",
+              "label": "SMS Nudge",
+              "config": {
+                  "to": "+155555503",
+                  "message": "Still interested? Here's a nudge!"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a7",
+          "position": {
+              "x": 581.6039721717767,
+              "y": 878.5172784641028
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "Create Discount & Hold",
+              "config": {
+                  "url": "https://api.example.com/discount",
+                  "method": "POST"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a9",
+          "position": {
+              "x": 866.1113428052521,
+              "y": 1296.9600313180217
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "Cancel Hold",
+              "config": {
+                  "url": "https://api.example.com/hold/cancel",
+                  "method": "POST"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "a10",
+          "position": {
+              "x": 667.7841114253491,
+              "y": 1427.8370107846094
+          },
+          "data": {
+              "kind": "action.email",
+              "label": "Thanks Email",
+              "config": {
+                  "to": "user@example.com",
+                  "subject": "Thanks for your order",
+                  "body": "We appreciate your purchase!"
+              },
+              "status": "idle"
+          }
+      },
+      {
+          "id": "a11",
+          "position": {
+              "x": 866.1276943148863,
+              "y": 1420.1226435244714
+          },
+          "data": {
+              "kind": "action.email",
+              "label": "Last-chance Offer",
+              "config": {
+                  "to": "user@example.com",
+                  "subject": "Last-chance",
+                  "body": "Special discount just for you"
+              },
+              "status": "success"
+          }
+      },
+      {
+          "id": "t3B_tUcqoNUZBcmdrTDlF",
+          "position": {
+              "x": 576.0467024931855,
+              "y": 1007.26616278964
+          },
+          "data": {
+              "kind": "action.email",
+              "label": "send email #2",
+              "config": {},
+              "status": "success"
+          }
+      },
+      {
+          "position": {
+              "x": 577.7934373080341,
+              "y": 1089.9034389616747
+          },
+          "data": {
+              "kind": "util.delay",
+              "label": "Delay 24h",
+              "config": {
+                  "ms": 2000
+              },
+              "status": "success",
+              "width": 180,
+              "height": 60
+          },
+          "id": "bz7gFLeZfglqV_wzhT332"
+      },
+      {
+          "position": {
+              "x": 574.6244473591993,
+              "y": 1232.8804082879844
+          },
+          "data": {
+              "kind": "logic.condition",
+              "label": "is Purchased",
+              "config": {
+                  "expression": "response.status == 500"
+              },
+              "status": "success",
+              "width": 180,
+              "height": 60
+          },
+          "id": "mWLUONFlvfQo6O4Q82CTu"
+      },
+      {
+          "position": {
+              "x": 663.668851598572,
+              "y": 1335.021401852053
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "Release Hold",
+              "config": {
+                  "url": "https://www.order.com/release",
+                  "method": "POST"
+              },
+              "status": "idle",
+              "width": 180,
+              "height": 60
+          },
+          "id": "p6YRofzHX1eWYybg1t95m"
+      },
+      {
+          "position": {
+              "x": 667.557413166126,
+              "y": 1539.7405879410128
+          },
+          "data": {
+              "kind": "util.log",
+              "label": "Log analytics",
+              "config": {
+                  "message": "Log the analytics"
+              },
+              "status": "idle",
+              "width": 180,
+              "height": 60
+          },
+          "id": "2iTo-d32P3_eXMenx4rtJ"
+      },
+      {
+          "position": {
+              "x": 884.4867878514774,
+              "y": 1540.208714078115
+          },
+          "data": {
+              "kind": "util.log",
+              "label": "Log analytics",
+              "config": {
+                  "message": "Log analytics"
+              },
+              "status": "success",
+              "width": 180,
+              "height": 60
+          },
+          "id": "u0tWrU2ofcwIATzPJGk0S"
+      },
+      {
+          "position": {
+              "x": 391.10710727721647,
+              "y": 783.9913061801849
+          },
+          "data": {
+              "kind": "util.log",
+              "label": "Purchased success",
+              "config": {
+                  "message": "Purchase successful"
+              },
+              "status": "idle",
+              "width": 180,
+              "height": 60
+          },
+          "id": "wnjQwmOJi2hF4Wjshkqw-"
+      },
+      {
+          "position": {
+              "x": 774.9808161042172,
+              "y": 397.34573773318436
+          },
+          "data": {
+              "kind": "util.log",
+              "label": "out of stock",
+              "config": {
+                  "message": "Out of Stock"
+              },
+              "status": "idle",
+              "width": 180,
+              "height": 60
+          },
+          "id": "1Rh8-KZf0gnG1WCGFR0nm"
+      },
+      {
+          "id": "q38OArqFfMqfc8LweePR_",
+          "position": {
+              "x": 55.468835997000724,
+              "y": 161.4319319067639
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "HTTP Request",
+              "config": {},
+              "status": "idle"
+          }
+      },
+      {
+          "position": {
+              "x": 588.0924597708213,
+              "y": 117.36544564643319
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "check cart",
+              "config": {
+                  "url": "https://www.cart.com",
+                  "method": "GET"
+              },
+              "status": "success",
+              "width": 180,
+              "height": 60
+          },
+          "id": "nBmwe-ajiG8H8MNqn1aGH"
+      },
+      {
+          "position": {
+              "x": 582.8670179318725,
+              "y": 1164.4226765280457
+          },
+          "data": {
+              "kind": "action.http",
+              "label": "check purchase",
+              "config": {
+                  "url": "https://www.cart.com/purchase",
+                  "method": "GET"
+              },
+              "status": "success",
+              "width": 180,
+              "height": 60
+          },
+          "id": "pNa8YId1RFV9vwjwOcU_t"
+      }
+  ],
+  "edges": [
+      {
+          "id": "a_e2",
+          "source": "a2",
+          "target": "a3",
+          "label": "true"
+      },
+      {
+          "id": "a_e3",
+          "source": "a3",
+          "target": "a4"
+      },
+      {
+          "id": "a_e4",
+          "source": "a4",
+          "target": "a5"
+      },
+      {
+          "id": "a_e10",
+          "source": "a9",
+          "target": "a11"
+      },
+      {
+          "source": "a6",
+          "target": "a7",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "cRuOIia0hq7E60eWbuiuS"
+      },
+      {
+          "source": "a5",
+          "target": "a6",
+          "sourceHandle": "false",
+          "targetHandle": "in",
+          "label": "false",
+          "id": "kX1zBTRiss7tfLByWfrWs"
+      },
+      {
+          "source": "a7",
+          "target": "t3B_tUcqoNUZBcmdrTDlF",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "6YK7bdaa4KmNIE7t6PEut"
+      },
+      {
+          "source": "t3B_tUcqoNUZBcmdrTDlF",
+          "target": "bz7gFLeZfglqV_wzhT332",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "bUSiYgEXUlhKgEqwse2gS"
+      },
+      {
+          "source": "mWLUONFlvfQo6O4Q82CTu",
+          "target": "p6YRofzHX1eWYybg1t95m",
+          "sourceHandle": "true",
+          "targetHandle": "in",
+          "label": "true",
+          "id": "EpXgVNA0MyWD8NLAFDmgJ"
+      },
+      {
+          "source": "p6YRofzHX1eWYybg1t95m",
+          "target": "a10",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "HxNlh7Pp003ldFB2R0aSn"
+      },
+      {
+          "source": "a10",
+          "target": "2iTo-d32P3_eXMenx4rtJ",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "TRYSQVeseP_GEJ96efOQX"
+      },
+      {
+          "source": "mWLUONFlvfQo6O4Q82CTu",
+          "target": "a9",
+          "sourceHandle": "false",
+          "targetHandle": "in",
+          "label": "false",
+          "id": "GBUIT25Xw2gE-fnIza-gC"
+      },
+      {
+          "source": "a11",
+          "target": "u0tWrU2ofcwIATzPJGk0S",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "RQ79jT1Qxl_-9vxRM1FqS"
+      },
+      {
+          "source": "a5",
+          "target": "wnjQwmOJi2hF4Wjshkqw-",
+          "sourceHandle": "true",
+          "targetHandle": "in",
+          "label": "true",
+          "id": "hYRYMzL_lBXNyW1erMN1t"
+      },
+      {
+          "source": "a2",
+          "target": "1Rh8-KZf0gnG1WCGFR0nm",
+          "sourceHandle": "false",
+          "targetHandle": "in",
+          "label": "false",
+          "id": "WFbITch2ngMNXr0eR6GyG"
+      },
+      {
+          "source": "a1",
+          "target": "nBmwe-ajiG8H8MNqn1aGH",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "hMMc7oq_GkAbE3iOflxho"
+      },
+      {
+          "source": "nBmwe-ajiG8H8MNqn1aGH",
+          "target": "a2",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "aRLztCBIjPzfNn8INX6rg"
+      },
+      {
+          "source": "bz7gFLeZfglqV_wzhT332",
+          "target": "pNa8YId1RFV9vwjwOcU_t",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "xrA1zNac4twyXDr1pcjWa"
+      },
+      {
+          "source": "pNa8YId1RFV9vwjwOcU_t",
+          "target": "mWLUONFlvfQo6O4Q82CTu",
+          "sourceHandle": "out",
+          "targetHandle": "in",
+          "id": "XflJGGHA53JXYVfblt0bY"
+      }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "sample1",
+  "name": "New Lead Welcome & Follow-up",
+  "version": 1,
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "viewport": { "x": 0, "y": 0, "zoom": 1 },
+  "nodes": [
+    { "id": "n1", "position": { "x": 50, "y": 100 }, "data": { "kind": "trigger.webhook", "label": "New Lead Webhook", "config": { "path": "/leads/webhook" } } },
+    { "id": "n2", "position": { "x": 280, "y": 80 }, "data": { "kind": "action.email", "label": "Send Welcome Email", "config": { "to": "lead@example.com", "subject": "Welcome!", "body": "Thanks for signing up!" } } },
+    { "id": "n3", "position": { "x": 520, "y": 80 }, "data": { "kind": "util.delay", "label": "Delay 1h", "config": { "ms": 3600000 } } },
+    { "id": "n4", "position": { "x": 760, "y": 80 }, "data": { "kind": "action.http", "label": "Add to CRM", "config": { "url": "https://api.example.com/crm", "method": "POST" } } },
+    { "id": "n5", "position": { "x": 1000, "y": 40 }, "data": { "kind": "logic.condition", "label": "Status == 200", "config": { "expression": "response.status == 200" } } },
+    { "id": "n6", "position": { "x": 1240, "y": 0 }, "data": { "kind": "action.sms", "label": "Success SMS", "config": { "to": "+155555501", "message": "Lead added to CRM" } } },
+    { "id": "n7", "position": { "x": 1240, "y": 120 }, "data": { "kind": "action.sms", "label": "Error SMS to Support", "config": { "to": "+155555502", "message": "Failed to add lead" } } }
+  ],
+  "edges": [
+    { "id": "e1", "source": "n1", "target": "n2" },
+    { "id": "e2", "source": "n2", "target": "n3" },
+    { "id": "e3", "source": "n3", "target": "n4" },
+    { "id": "e4", "source": "n4", "target": "n5" },
+    { "id": "e5", "source": "n5", "target": "n6", "label": "true" },
+    { "id": "e6", "source": "n5", "target": "n7", "label": "false" }
+  ]
+}
